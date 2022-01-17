@@ -59,9 +59,12 @@ class Field {
         return result.toString();
     }
 
-    public void initialize() {
+    public void initialize(String name) {
+        ConsoleHelper.write(String.format("%s, place your ships on the game field\n\n", name));
         ships.forEach(ship -> ConsoleHelper.askShipCoordinate(this, ship));
         ConsoleHelper.write(this.toString());
+        ConsoleHelper.write("\nPress Enter and pass the move to another player\n");
+        ConsoleHelper.waitEnter();
     }
 
 
@@ -79,9 +82,11 @@ class Field {
         Ship downedShip;
         downedShip = ships.stream().filter(ship -> ship.isOccupied(coordinate)).findFirst().get();
         if (downedShip.horizontal) {
-            return IntStream.range(downedShip.x, downedShip.x + downedShip.model.size).mapToObj(i -> field[downedShip.y][i]).noneMatch(z -> z == 'O');
+            return IntStream.range(downedShip.x, downedShip.x + downedShip.model.size)
+                    .mapToObj(i -> field[downedShip.y][i]).noneMatch(z -> z == 'O');
         } else {
-            return IntStream.range(downedShip.y, downedShip.y + downedShip.model.size).mapToObj(j -> field[j][downedShip.x]).noneMatch(z -> z == 'O');
+            return IntStream.range(downedShip.y, downedShip.y + downedShip.model.size)
+                    .mapToObj(j -> field[j][downedShip.x]).noneMatch(z -> z == 'O');
         }
 
 

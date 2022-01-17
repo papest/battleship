@@ -8,7 +8,7 @@ class ConsoleHelper {
 
         write(field.toString());
         while (true) {
-            write(String.format("Enter the coordinates of the %s (%s cells):\n\n> ", ship.model.modelName, ship.model.size));
+            write(String.format("\nEnter the coordinates of the %s (%s cells):\n\n> ", ship.model.modelName, ship.model.size));
             try {
                 Coordinate firstCoordinate1 = readCoordinate(field);
                 Coordinate secondCoordinate2 = readCoordinate(field);
@@ -60,4 +60,14 @@ class ConsoleHelper {
     }
 
 
+    public static void writeFields(Field playerField, Field opponentField) {
+        write(opponentField.toString().replaceAll("O", "~"));
+        write(String.format("%" + (opponentField.FIELD_SIZE * 2 + 1) + "s\n", " ").replaceAll(" ", "-"));
+        write(playerField.toString());
+    }
+
+    public static void waitEnter() {
+        scanner.nextLine();
+        scanner.nextLine();
+    }
 }
